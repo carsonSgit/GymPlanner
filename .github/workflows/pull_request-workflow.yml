@@ -19,6 +19,8 @@ jobs:
         uses: gradle/gradle-build-action@v2
       - name:  Make gradlew executable
         run: chmod +x ./gradlew
+      - name: Run ktlint
+        run: ./gradlew ktlintCheck
       - name: Run Build with Gradle Wrapper
         run: ./gradlew build
 

@@ -1,4 +1,4 @@
-package com.example.emptyactivity.ui.theme
+package com.example.workouttracker.ui.theme
 
 import android.app.Activity
 import android.os.Build
@@ -38,7 +38,7 @@ private val LightColorScheme = lightColorScheme(
 )
 
 @Composable
-fun EmptyActivityTheme(
+fun WorkoutTrackerTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,

@@ -7,6 +7,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -64,15 +67,15 @@ fun MainNavigator() {
 @Composable
 fun ExerciseInputScreen(navController: NavController) {
     Column {
-        Button(onClick = {
+        SquareButton(onClick = {
             navController.navigate("exerciselist")
         }) {
-            Text("Navigate to Exercise List")
+            Text("List")
         }
-        Button(onClick = {
+        SquareButton(onClick = {
             navController.navigate("notes")
         }) {
-            Text("Navigate to Notes")
+            Text("Notes")
         }
         WorkoutInput()
     }
@@ -81,15 +84,15 @@ fun ExerciseInputScreen(navController: NavController) {
 @Composable
 fun ExerciseListScreen(navController: NavController) {
     Column {
-        Button(onClick = {
+        SquareButton(onClick = {
             navController.navigate("exerciseinput")
         }) {
-            Text("Navigate to Exercise Input")
+            Text("Input")
         }
-        Button(onClick = {
+        SquareButton(onClick = {
             navController.navigate("notes")
         }) {
-            Text("Navigate to Notes")
+            Text("Notes")
         }
         WorkoutList()
     }
@@ -99,17 +102,27 @@ fun ExerciseListScreen(navController: NavController) {
 @Composable
 fun NotesScreen(navController: NavController) {
     Column {
-        Button(onClick = {
+        SquareButton(onClick = {
             navController.navigate("exerciseinput")
         }) {
-            Text("Navigate to Exercise Input")
+            Text("Input")
         }
-        Button(onClick = {
-            navController.navigate("exercistlist")
+        SquareButton(onClick = {
+            navController.navigate("exerciselist")
         }) {
-            Text("Navigate to Exercise List")
+            Text("List")
         }
         ToDoScreen()
     }
+}
 
+@Composable
+fun SquareButton(onClick: () -> Unit, content: @Composable () -> Unit) {
+    Button(
+        onClick = onClick,
+        shape = RoundedCornerShape(8.dp),
+        modifier = Modifier.padding(start = 4.dp)
+    ) {
+        content()
+    }
 }

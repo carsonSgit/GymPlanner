@@ -164,7 +164,7 @@ fun Greeting( modifier: Modifier = Modifier) {
         mutableStateOf("")
     }
     var exerciseChoice by remember { mutableStateOf("")}
-
+    
     val extraPadding = if(expanded.value) 48.dp else 0.dp
 
     Surface (color = Color.LightGray,
@@ -185,7 +185,6 @@ fun Greeting( modifier: Modifier = Modifier) {
                 OutlinedTextField(value = exerciseChoice , onValueChange = {exerciseChoice = it}, label = { Text(
                     text = "Exercise Choice"
                 )})
-
                 ExerciseList(input = exerciseChoice)
 
             }

@@ -10,10 +10,10 @@ interface WorkoutDestination {
 }
 
 object ExerciseInput:WorkoutDestination{
-    override val route = "exerciseinput"
+    override val route = "add"
 }
 object ExerciseList: WorkoutDestination{
-    override val route = "exerciselist"
+    override val route = "list"
 
 }
 

@@ -89,12 +89,11 @@ private fun ExerciseTab(
             )
             .clearAndSetSemantics { contentDescription = text }
     ) {
-        if (selected) {
-            Spacer(Modifier.width(12.dp))
-            Text(text.uppercase(Locale.getDefault()), color = tabTintColor)
-        }
+        Spacer(Modifier.width(12.dp))
+        Text(text.uppercase(Locale.getDefault()), color = tabTintColor)
     }
 }
+
 
 private val TabHeight = 56.dp
 private const val InactiveTabOpacity = 0.60f

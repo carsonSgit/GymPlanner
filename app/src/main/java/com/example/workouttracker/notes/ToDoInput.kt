@@ -25,6 +25,7 @@ import androidx.compose.foundation.layout.Column
 //import androidx.compose.foundation.layout.ColumnScopeInstance.weight
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
@@ -47,6 +48,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.toLowerCase
 import androidx.compose.ui.unit.dp
 
@@ -90,7 +93,10 @@ fun ToDoInput(
                     toDoLabel = ""
                     toDoId++
                 }
-            }
+            },
+            modifier = Modifier
+                .padding(8.dp)
+                .height(48.dp)
         ) {
             Text("Add To-Do")
         }
@@ -112,8 +118,9 @@ fun PriorityDropdown(
         modifier = Modifier
             .clickable { expanded = true }
             .border(1.dp, Color.Gray)
-            .padding(16.dp),
-    ) {
+            .padding(16.dp)
+            .semantics { contentDescription = "Select Priority" },
+        ) {
         Text(
             text = "Priority: ${selectedPriority.text}"
         )

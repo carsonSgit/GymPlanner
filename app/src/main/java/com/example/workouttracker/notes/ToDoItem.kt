@@ -26,6 +26,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -51,9 +53,15 @@ fun ToDoItem(
         )
         Checkbox(
             checked = checked,
-            onCheckedChange = onCheckedChange
+            onCheckedChange = onCheckedChange,
+            modifier = Modifier.semantics {
+                contentDescription = "Mark $taskName as complete"
+            }
         )
-        IconButton(onClick = onClose) {
+        IconButton(
+            onClick = onClose,
+            modifier = Modifier.padding(8.dp) // Add padding to increase the touch area
+        ) {
             Icon(Icons.Filled.Close, contentDescription = "Close")
         }
     }

@@ -24,6 +24,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -46,6 +47,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.LineBreak
 import androidx.compose.ui.text.style.TextAlign
 
@@ -62,12 +65,13 @@ class MainActivity : ComponentActivity() {
             WorkoutTrackerTheme {
                 Surface (modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background){
-                    Scaffold (topBar = { TopAppBar(title = { Text("The Gym App")})},
+                    Scaffold (topBar = { TopAppBar(title = { Text("The Gym App", modifier = Modifier.semantics { contentDescription = "App Title" })})},
                         bottomBar = {
                             BottomAppBar (containerColor = MaterialTheme.colorScheme.primaryContainer,
                                 contentColor = MaterialTheme.colorScheme.primary,){
                                 Text(modifier = Modifier
-                                    .fillMaxWidth(),
+                                    .fillMaxWidth()
+                                    .semantics { contentDescription = "Footer Text" },
                                     textAlign = TextAlign.Center,
                                     text = "Thank You for visiting")
                             }
@@ -203,7 +207,10 @@ fun OnboardingScreen(onContinueClicked: () -> Unit,modifier: Modifier = Modifier
         horizontalAlignment = Alignment.CenterHorizontally) {
         Text(text = "Welcome to the gym")
 
-        Button(modifier = Modifier.padding(vertical = 24.dp),onClick = onContinueClicked) {
+        Button(modifier = Modifier
+            .padding(vertical = 24.dp)
+            .size(width = 100.dp, height = 48.dp),onClick = onContinueClicked)
+        {
             Text(text = "Continue to the gym")
 
         }

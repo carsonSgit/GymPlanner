@@ -74,6 +74,7 @@ private fun ExerciseTab(
     Row(
         modifier = Modifier
             .padding(16.dp)
+            .width(TabMinimumWidth)
             .animateContentSize()
             .height(TabHeight)
             .selectable(
@@ -87,16 +88,21 @@ private fun ExerciseTab(
                     color = Color.Unspecified
                 )
             )
-            .clearAndSetSemantics { contentDescription = text }
+            .clearAndSetSemantics { contentDescription = "Tab: $text"  }
     ) {
         Spacer(Modifier.width(12.dp))
-        Text(text.uppercase(Locale.getDefault()), color = tabTintColor)
+        Text(
+            text = text.uppercase(Locale.getDefault()),
+            color = tabTintColor,
+            modifier = Modifier.padding(horizontal = 8.dp) // Additional padding for readability
+        )
     }
 }
 
 
 private val TabHeight = 56.dp
 private const val InactiveTabOpacity = 0.60f
+private val TabMinimumWidth = 100.dp
 
 private const val TabFadeInAnimationDuration = 150
 private const val TabFadeInAnimationDelay = 100

@@ -30,6 +30,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.codelabs.state.ToDoScreen
+import com.example.workouttracker.accountpage.SignInPage
 import com.example.workouttracker.exerciseinput.WorkoutInput
 import com.example.workouttracker.exerciselist.ExerciseList
 import com.example.workouttracker.exerciselist.WorkoutList
@@ -76,6 +77,9 @@ class MainActivity : ComponentActivity() {
                             }
                             composable(route = Notes.route) {
                                 ToDoScreen()
+                            }
+                            composable(route = SignIn.route) {
+                                SignInPage()
                             }
                         }
                     }

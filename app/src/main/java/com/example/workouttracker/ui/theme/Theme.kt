@@ -1,6 +1,7 @@
 package com.example.workouttracker.ui.theme
 
 import android.app.Activity
+import android.hardware.lights.Light
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

@@ -16,9 +16,11 @@ object ExerciseList: WorkoutDestination{
     override val route = "list"
 
 }
-
 object Notes: WorkoutDestination{
     override val route = "notes"
 }
+object SignIn: WorkoutDestination{
+    override val route = "account"
+}
 
-val exerciseTabRowScreens = listOf(ExerciseInput, ExerciseList, Notes)
+val exerciseTabRowScreens = listOf(ExerciseInput, ExerciseList, Notes, SignIn)

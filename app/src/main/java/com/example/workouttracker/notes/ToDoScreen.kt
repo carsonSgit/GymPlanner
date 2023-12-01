@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.workouttracker.ui.theme.WorkoutTrackerTheme
 
 @Composable
 fun ToDoScreen(

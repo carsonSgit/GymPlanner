@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.WorkoutTracker" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.WorkoutTracker" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="android:statusBarColor">@color/purple_500</item>
+    </style>
+        <color name="primaryColor">#6200EE</color>
+        <color name="primaryVariantColor">#3700B3</color>
+        <color name="secondaryColor">#03DAC5</color>
+        <color name="secondaryVariantColor">#018786</color>
+        <color name="statusBarColor">#6200EE</color>
 </resources>

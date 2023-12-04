@@ -170,26 +170,25 @@ fun Greeting( modifier: Modifier = Modifier) {
     var exerciseChoice by remember { mutableStateOf("")}
     
     val extraPadding = if(expanded.value) 48.dp else 0.dp
-        Row(modifier = Modifier.padding(24.dp)) {
-            Column(modifier = Modifier
-                .weight(1f)
-                .padding(bottom = extraPadding)) {
-                Text(text = "Enter Your Name:")
-                OutlinedTextField(value = userName, onValueChange = {userName = it} ,
-                    label = { Text("User Name")})
-                Text(
-                    text = "Hello $userName!"
-                )
-                LineBreak
-                Text(text = "What do you want to train today $userName")
-                OutlinedTextField(value = exerciseChoice , onValueChange = {exerciseChoice = it}, label = { Text(
-                    text = "Exercise Choice"
-                )})
-                ExerciseList(input = exerciseChoice)
+    Row(modifier = Modifier.padding(24.dp)) {
+        Column(modifier = Modifier
+            .weight(1f)
+            .padding(bottom = extraPadding)) {
+            Text(text = "Enter Your Name:")
+            OutlinedTextField(value = userName, onValueChange = {userName = it} ,
+                label = { Text("User Name")})
+            Text(
+                text = "Hello $userName!"
+            )
+            LineBreak
+            Text(text = "What do you want to train today $userName")
+            OutlinedTextField(value = exerciseChoice , onValueChange = {exerciseChoice = it}, label = { Text(
+                text = "Exercise Choice"
+            )})
+            ExerciseList(input = exerciseChoice)
 
-            }
         }
-
+    }
 }
 
 // an extra screen that lets you onto the app

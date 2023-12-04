@@ -73,7 +73,7 @@ private fun ExerciseTab(
     )
     Row(
         modifier = Modifier
-            .padding(16.dp)
+            .padding(1.dp)
             .width(TabMinimumWidth)
             .animateContentSize()
             .height(TabHeight)
@@ -90,7 +90,7 @@ private fun ExerciseTab(
             )
             .clearAndSetSemantics { contentDescription = "Tab: $text"  }
     ) {
-        Spacer(Modifier.width(12.dp))
+        Spacer(Modifier.width(5.dp))
         Text(
             text = text.uppercase(Locale.getDefault()),
             color = tabTintColor,

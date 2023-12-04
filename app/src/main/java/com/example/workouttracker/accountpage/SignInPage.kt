@@ -32,7 +32,7 @@ import com.example.workouttracker.ui.theme.Purple80
 import com.example.workouttracker.ui.theme.WorkoutTrackerTheme
 
 @Composable
-fun SignInPage(){
+fun SignInPage() {
     var showLoginPage by remember { mutableStateOf(true) }
 
     if (showLoginPage) {
@@ -122,17 +122,13 @@ fun LoginPage(onSignUpClick: () -> Unit) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SignUpPage(onLogInClick: () -> Unit) {
-    var username by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
-    var age by remember { mutableStateOf("") }
 
-    var usernameError by remember { mutableStateOf<String?>(null) }
     var emailError by remember { mutableStateOf<String?>(null) }
     var passwordError by remember { mutableStateOf<String?>(null) }
     var confirmPasswordError by remember { mutableStateOf<String?>(null) }
-    var ageError by remember { mutableStateOf<String?>(null) }
     val error = remember { mutableStateOf<String?>(null) }
 
     var passwordVisibility by remember { mutableStateOf(false) }
@@ -165,23 +161,6 @@ fun SignUpPage(onLogInClick: () -> Unit) {
             isError = emailError != null,
         )
         emailError?.let { error ->
-            Text(text = error, color = Color.Red, modifier = Modifier.padding(vertical = 5.dp))
-        }
-
-        // USERNAME INPUT
-        TextField(
-            value = username,
-            onValueChange = { newText ->
-                username = newText
-                usernameError = if (newText.isBlank()) "Username cannot be blank" else null
-            },
-            label = { Text("Enter your Username") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp),
-            isError = usernameError != null,
-        )
-        usernameError?.let { error ->
             Text(text = error, color = Color.Red, modifier = Modifier.padding(vertical = 5.dp))
         }
 
@@ -227,29 +206,13 @@ fun SignUpPage(onLogInClick: () -> Unit) {
             Text(text = error, color = Color.Red, modifier = Modifier.padding(8.dp))
         }
 
-        // AGE BOX
-        TextField(
-            value = age,
-            onValueChange = { newText ->
-                age = newText
-                ageError = if (newText.isBlank() || newText.toIntOrNull() == null || newText.toInt() < 13) "Age must be 13 or older" else null
-            },
-            label = { Text("Enter your Age") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp),
-            isError = ageError != null,
-        )
-        ageError?.let { error ->
-            Text(text = error, color = Color.Red, modifier = Modifier.padding(vertical = 5.dp))
-        }
         // SUBMIT BUTTON
         Button(
             onClick = {
                 if (email.isNotBlank() && password.isNotBlank() &&
-                    username.isNotBlank() && confirmPassword.isNotBlank() && age.isNotBlank() &&
-                    emailError == null && usernameError == null && passwordError == null &&
-                    confirmPasswordError == null && ageError == null
+                    confirmPassword.isNotBlank() &&
+                    emailError == null && passwordError == null &&
+                    confirmPasswordError == null
                 ) {
                     // Handle sign-in logic or navigate to Firebase authentication
                 } else {

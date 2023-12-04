@@ -100,13 +100,13 @@ private fun ExerciseTab(
             contentDescription = null,
             tint = tabTintColor,
             modifier = Modifier
-                .padding(horizontal = 16.dp, vertical = 16.dp)
+                .padding(horizontal = 16.dp, vertical = 20.dp)
         )
 
     }
 }
 
-private val TabHeight = 56.dp
+private val TabHeight = 64.dp
 private const val InactiveTabOpacity = 0.60f
 private val TabMinimumWidth = 80.dp
 

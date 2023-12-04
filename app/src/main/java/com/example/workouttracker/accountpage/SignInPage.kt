@@ -224,7 +224,7 @@ fun SignUpPage(onLogInClick: () -> Unit) {
                 .padding(8.dp),
             enabled = true // Always enabled, validation will handle the actual sign-in conditions
         ) {
-            Text("Sign In")
+            Text("Sign Up")
         }
 
         error.value?.let { error ->

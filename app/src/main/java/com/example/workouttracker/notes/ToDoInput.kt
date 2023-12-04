@@ -83,7 +83,6 @@ fun ToDoInput(
             onValueChange = { toDoLabel = it },
             label = { Text("Enter a task!") },
             modifier = Modifier.padding(bottom = 4.dp)
-                .background(MaterialTheme.colorScheme.background)
         )
         // Dropdown for priority of todo item
         PriorityDropdown(toDoPriority) { priority ->

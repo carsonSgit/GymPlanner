@@ -63,8 +63,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             WorkoutTrackerTheme {
-                Surface (modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background){
+                Surface (modifier = Modifier.fillMaxSize()){
                     Scaffold (topBar = { TopAppBar(title = { Text("The Gym App", modifier = Modifier.semantics { contentDescription = "App Title" })})},
                         bottomBar = {
                             BottomAppBar (containerColor = MaterialTheme.colorScheme.primaryContainer,
@@ -221,8 +220,7 @@ fun OnboardingScreen(onContinueClicked: () -> Unit,modifier: Modifier = Modifier
 fun WorkoutList(modifier: Modifier = Modifier){
     var shouldShowOnboarding by remember { mutableStateOf(true) }
 
-    Surface(modifier
-        .background(MaterialTheme.colorScheme.background)) {
+    Surface() {
         if (shouldShowOnboarding) {
             OnboardingScreen(onContinueClicked = { shouldShowOnboarding = false })
         } else {

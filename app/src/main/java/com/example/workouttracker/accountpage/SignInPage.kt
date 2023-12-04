@@ -169,7 +169,7 @@ fun SignUpPage(onLogInClick: () -> Unit) {
             value = password,
             onValueChange = { newText ->
                 password = newText
-                passwordError = if (newText.length < 6) "Password must be at least 6 characters" else null
+                passwordError = if (newText.length < 3) "Password must be at least 3 characters" else null
             },
             visualTransformation = if (passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
             label = { Text("Enter your Password") },
@@ -196,7 +196,7 @@ fun SignUpPage(onLogInClick: () -> Unit) {
                 confirmPasswordError = if (newText != password) "Passwords do not match" else null
             },
             visualTransformation = if (passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
-            label = { Text("Enter your Confirm Password") },
+            label = { Text("Confirm Password") },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp),

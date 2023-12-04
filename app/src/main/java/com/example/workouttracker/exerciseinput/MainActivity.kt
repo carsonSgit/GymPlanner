@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.runtime.*
 import androidx.compose.ui.tooling.preview.Preview
@@ -72,11 +73,11 @@ fun WorkoutInput() {
         TopAppBar(navigationIcon = {
             // @see [https://semicolonspace.com/jetpack-compose-images/]
             Image(painter = painterResource(R.drawable.logo), contentScale = ContentScale.Crop, contentDescription = "Logo", modifier = Modifier
-                .size(70.dp)
+                .size(50.dp)
                 .clip(
                     CircleShape
                 )
-                .border(width = 2.dp, color = Color.Blue, shape = CircleShape))},
+                .border(width = 2.dp, color = MaterialTheme.colorScheme.primary, shape = CircleShape))},
             title = {Text("Workout Tracker")})},
         contentColor = MaterialTheme.colorScheme.primary
     ){

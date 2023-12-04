@@ -66,7 +66,7 @@ class MainActivity : ComponentActivity() {
                 Surface (modifier = Modifier.fillMaxSize()){
                     Scaffold (topBar = { TopAppBar(title = { Text("The Gym App", modifier = Modifier.semantics { contentDescription = "App Title" })})},
                         bottomBar = {
-                            BottomAppBar (containerColor = MaterialTheme.colorScheme.primaryContainer,
+                            BottomAppBar (containerColor = MaterialTheme.colorScheme.background,
                                 contentColor = MaterialTheme.colorScheme.primary,){
                                 Text(modifier = Modifier
                                     .fillMaxWidth()
@@ -158,6 +158,7 @@ fun ExerciseList(input: String){
 
 
 // greets the user showing the user's name
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Greeting( modifier: Modifier = Modifier) {
     val expanded = remember {
@@ -199,21 +200,22 @@ fun Greeting( modifier: Modifier = Modifier) {
 // an extra screen that lets you onto the app
 @Composable
 fun OnboardingScreen(onContinueClicked: () -> Unit,modifier: Modifier = Modifier){
+    WorkoutTrackerTheme {
+        Column(modifier = modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally) {
+            Text(text = "Welcome to the gym")
 
+            Button(modifier = Modifier
+                .padding(vertical = 24.dp)
+                .size(width = 180.dp, height = 48.dp),onClick = onContinueClicked)
+            {
+                Text(text = "Continue to the gym")
 
-    Column(modifier = modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(text = "Welcome to the gym")
-
-        Button(modifier = Modifier
-            .padding(vertical = 24.dp)
-            .size(width = 180.dp, height = 48.dp),onClick = onContinueClicked)
-        {
-            Text(text = "Continue to the gym")
-
+            }
         }
-    }
+}
+
 }
 
 @Composable

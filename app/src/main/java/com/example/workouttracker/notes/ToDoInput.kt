@@ -104,7 +104,7 @@ fun ToDoInput(
                 .height(48.dp)
         ) {
             Text(text = "Add To-Do",
-                color = MaterialTheme.colorScheme.surface)
+                color = MaterialTheme.colorScheme.onPrimary)
         }
     }
 }

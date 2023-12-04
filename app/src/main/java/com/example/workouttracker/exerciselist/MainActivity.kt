@@ -170,7 +170,6 @@ fun Greeting( modifier: Modifier = Modifier) {
     var exerciseChoice by remember { mutableStateOf("")}
     
     val extraPadding = if(expanded.value) 48.dp else 0.dp
-
         Row(modifier = Modifier.padding(24.dp)) {
             Column(modifier = Modifier
                 .weight(1f)

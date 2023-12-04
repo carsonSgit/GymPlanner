@@ -118,7 +118,7 @@ fun WorkoutInput() {
                     }
                     keyboard?.hide()
                 },
-                    modifier = Modifier.size(width = 100.dp, height = 48.dp)
+                    modifier = Modifier.size(width = 140.dp, height = 48.dp)
                 ) {
                     Text("Add Exercise")
                 }

@@ -209,7 +209,7 @@ fun OnboardingScreen(onContinueClicked: () -> Unit,modifier: Modifier = Modifier
 
         Button(modifier = Modifier
             .padding(vertical = 24.dp)
-            .size(width = 100.dp, height = 48.dp),onClick = onContinueClicked)
+            .size(width = 180.dp, height = 48.dp),onClick = onContinueClicked)
         {
             Text(text = "Continue to the gym")
 

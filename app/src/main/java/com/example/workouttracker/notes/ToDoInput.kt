@@ -18,6 +18,7 @@
 package com.codelabs.state
 
 import android.widget.Toast
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -37,8 +38,11 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -74,11 +78,12 @@ fun ToDoInput(
             modifier = modifier.padding(58.dp, top = 58.dp),
             horizontalAlignment = Alignment.CenterHorizontally) {
         // all necessary code for user input (saves into label value)
-        TextField(
+        OutlinedTextField(
             value = toDoLabel,
             onValueChange = { toDoLabel = it },
             label = { Text("Enter a task!") },
             modifier = Modifier.padding(bottom = 4.dp)
+                .background(MaterialTheme.colorScheme.background)
         )
         // Dropdown for priority of todo item
         PriorityDropdown(toDoPriority) { priority ->

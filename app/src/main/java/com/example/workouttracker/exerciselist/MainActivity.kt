@@ -171,9 +171,6 @@ fun Greeting( modifier: Modifier = Modifier) {
     
     val extraPadding = if(expanded.value) 48.dp else 0.dp
 
-    Surface (color = Color.LightGray,
-        modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp)
-    ){
         Row(modifier = Modifier.padding(24.dp)) {
             Column(modifier = Modifier
                 .weight(1f)
@@ -193,7 +190,6 @@ fun Greeting( modifier: Modifier = Modifier) {
 
             }
         }
-    }
 
 }
 
@@ -222,13 +218,13 @@ fun OnboardingScreen(onContinueClicked: () -> Unit,modifier: Modifier = Modifier
 fun WorkoutList(modifier: Modifier = Modifier){
     var shouldShowOnboarding by remember { mutableStateOf(true) }
 
-    Surface() {
+    /*Surface() {
         if (shouldShowOnboarding) {
             OnboardingScreen(onContinueClicked = { shouldShowOnboarding = false })
-        } else {
+        } else {*/
             Greeting()
 
-        }}
+        //}}
 }
 
 

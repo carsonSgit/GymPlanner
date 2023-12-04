@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.runtime.*
 import androidx.compose.ui.tooling.preview.Preview
@@ -17,6 +18,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -40,7 +42,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             WorkoutTrackerTheme {
                 // A surface container using the 'background' color from the theme
-                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
+                Surface(modifier = Modifier.fillMaxSize()) {
                     WorkoutInput()
                 }
             }
@@ -68,16 +70,7 @@ fun WorkoutInput() {
     var exercisesList by rememberSaveable { mutableStateOf("") }
 
 
-    Scaffold(topBar = {
-        TopAppBar(navigationIcon = {
-            // @see [https://semicolonspace.com/jetpack-compose-images/]
-            Image(painter = painterResource(R.drawable.logo), contentScale = ContentScale.Crop, contentDescription = "Logo", modifier = Modifier
-                .size(70.dp)
-                .clip(
-                    CircleShape
-                )
-                .border(width = 2.dp, color = Color.Blue, shape = CircleShape))},
-            title = {Text("Workout Tracker")})},
+    Scaffold(
         contentColor = MaterialTheme.colorScheme.primary
     ){
         Box(modifier = Modifier
@@ -88,21 +81,21 @@ fun WorkoutInput() {
                 modifier = Modifier.padding(16.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                TextField(
+                OutlinedTextField(
                     value = exerciseName,
                     onValueChange = { exerciseName = it },
                     label = { Text("Exercise Name") },
                     singleLine = true
                 )
 
-                TextField(
+                OutlinedTextField(
                     value = exerciseReps,
                     onValueChange = { exerciseReps = it },
                     label = { Text("Reps") },
                     singleLine = true
                 )
 
-                TextField(
+                OutlinedTextField(
                     value = exerciseWeight,
                     onValueChange = { exerciseWeight = it },
                     label = { Text("Weight") },
@@ -118,7 +111,7 @@ fun WorkoutInput() {
                     }
                     keyboard?.hide()
                 },
-                    modifier = Modifier.size(width = 100.dp, height = 48.dp)
+                    modifier = Modifier.size(width = 140.dp, height = 48.dp)
                 ) {
                     Text("Add Exercise")
                 }

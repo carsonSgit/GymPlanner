@@ -30,6 +30,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.codelabs.state.ToDoScreen
+import com.example.calendartest.CalendarContent
 import com.example.workouttracker.accountpage.SignInPage
 import com.example.workouttracker.exerciseinput.WorkoutInput
 import com.example.workouttracker.exerciselist.ExerciseList
@@ -57,7 +58,7 @@ class MainActivity : ComponentActivity() {
                 if (showLandingScreen) {
                     LandingScreen(onTimeout = { showLandingScreen = false })
                 } else {
-                    Scaffold(topBar = {
+                    Scaffold(bottomBar = {
                         ExerciseTabRow(
                             allScreens = exerciseTabRowScreens,
                             onTabSelected = { newScreen -> navController.navigateSingleTo(newScreen.route) },
@@ -78,6 +79,9 @@ class MainActivity : ComponentActivity() {
                             composable(route = Notes.route) {
                                 ToDoScreen()
                             }
+                            composable(route = Calendar.route){
+                                CalendarContent()
+                            }
                             composable(route = SignIn.route) {
                                 SignInPage()
                             }
@@ -88,6 +92,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
 fun NavHostController.navigateSingleTo(route: String) =
     this.navigate(route) {
         popUpTo(

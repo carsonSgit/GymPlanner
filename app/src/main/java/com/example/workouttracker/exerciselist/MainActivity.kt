@@ -63,11 +63,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             WorkoutTrackerTheme {
-                Surface (modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background){
+                Surface (modifier = Modifier.fillMaxSize()){
                     Scaffold (topBar = { TopAppBar(title = { Text("The Gym App", modifier = Modifier.semantics { contentDescription = "App Title" })})},
                         bottomBar = {
-                            BottomAppBar (containerColor = MaterialTheme.colorScheme.primaryContainer,
+                            BottomAppBar (containerColor = MaterialTheme.colorScheme.background,
                                 contentColor = MaterialTheme.colorScheme.primary,){
                                 Text(modifier = Modifier
                                     .fillMaxWidth()
@@ -159,6 +158,7 @@ fun ExerciseList(input: String){
 
 
 // greets the user showing the user's name
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Greeting( modifier: Modifier = Modifier) {
     val expanded = remember {
@@ -170,65 +170,59 @@ fun Greeting( modifier: Modifier = Modifier) {
     var exerciseChoice by remember { mutableStateOf("")}
     
     val extraPadding = if(expanded.value) 48.dp else 0.dp
+    Row(modifier = Modifier.padding(24.dp)) {
+        Column(modifier = Modifier
+            .weight(1f)
+            .padding(bottom = extraPadding)) {
+            Text(text = "Enter Your Name:")
+            OutlinedTextField(value = userName, onValueChange = {userName = it} ,
+                label = { Text("User Name")})
+            Text(
+                text = "Hello $userName!"
+            )
+            LineBreak
+            Text(text = "What do you want to train today $userName")
+            OutlinedTextField(value = exerciseChoice , onValueChange = {exerciseChoice = it}, label = { Text(
+                text = "Exercise Choice"
+            )})
+            ExerciseList(input = exerciseChoice)
 
-    Surface (color = Color.LightGray,
-        modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp)
-    ){
-        Row(modifier = Modifier.padding(24.dp)) {
-            Column(modifier = Modifier
-                .weight(1f)
-                .padding(bottom = extraPadding)) {
-                Text(text = "Enter Your Name:")
-                OutlinedTextField(value = userName, onValueChange = {userName = it} ,
-                    label = { Text("User Name")})
-                Text(
-                    text = "Hello $userName!"
-                )
-                LineBreak
-                Text(text = "What do you want to train today $userName")
-                OutlinedTextField(value = exerciseChoice , onValueChange = {exerciseChoice = it}, label = { Text(
-                    text = "Exercise Choice"
-                )})
-                ExerciseList(input = exerciseChoice)
-
-            }
         }
     }
-
 }
 
 // an extra screen that lets you onto the app
 @Composable
 fun OnboardingScreen(onContinueClicked: () -> Unit,modifier: Modifier = Modifier){
+    WorkoutTrackerTheme {
+        Column(modifier = modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally) {
+            Text(text = "Welcome to the gym")
 
+            Button(modifier = Modifier
+                .padding(vertical = 24.dp)
+                .size(width = 180.dp, height = 48.dp),onClick = onContinueClicked)
+            {
+                Text(text = "Continue to the gym")
 
-    Column(modifier = modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(text = "Welcome to the gym")
-
-        Button(modifier = Modifier
-            .padding(vertical = 24.dp)
-            .size(width = 100.dp, height = 48.dp),onClick = onContinueClicked)
-        {
-            Text(text = "Continue to the gym")
-
+            }
         }
-    }
+}
+
 }
 
 @Composable
 fun WorkoutList(modifier: Modifier = Modifier){
     var shouldShowOnboarding by remember { mutableStateOf(true) }
 
-    Surface(modifier
-        .background(MaterialTheme.colorScheme.background)) {
+    /*Surface() {
         if (shouldShowOnboarding) {
             OnboardingScreen(onContinueClicked = { shouldShowOnboarding = false })
-        } else {
+        } else {*/
             Greeting()
 
-        }}
+        //}}
 }
 
 

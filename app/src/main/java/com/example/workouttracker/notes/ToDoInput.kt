@@ -103,7 +103,8 @@ fun ToDoInput(
                 .padding(8.dp)
                 .height(48.dp)
         ) {
-            Text("Add To-Do")
+            Text(text = "Add To-Do",
+                color = MaterialTheme.colorScheme.surface)
         }
     }
 }

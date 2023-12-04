@@ -69,16 +69,7 @@ fun WorkoutInput() {
     var exercisesList by rememberSaveable { mutableStateOf("") }
 
 
-    Scaffold(topBar = {
-        TopAppBar(navigationIcon = {
-            // @see [https://semicolonspace.com/jetpack-compose-images/]
-            Image(painter = painterResource(R.drawable.logo), contentScale = ContentScale.Crop, contentDescription = "Logo", modifier = Modifier
-                .size(50.dp)
-                .clip(
-                    CircleShape
-                )
-                .border(width = 2.dp, color = MaterialTheme.colorScheme.primary, shape = CircleShape))},
-            title = {Text("Workout Tracker")})},
+    Scaffold(
         contentColor = MaterialTheme.colorScheme.primary
     ){
         Box(modifier = Modifier

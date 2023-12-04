@@ -18,6 +18,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -80,21 +81,21 @@ fun WorkoutInput() {
                 modifier = Modifier.padding(16.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                TextField(
+                OutlinedTextField(
                     value = exerciseName,
                     onValueChange = { exerciseName = it },
                     label = { Text("Exercise Name") },
                     singleLine = true
                 )
 
-                TextField(
+                OutlinedTextField(
                     value = exerciseReps,
                     onValueChange = { exerciseReps = it },
                     label = { Text("Reps") },
                     singleLine = true
                 )
 
-                TextField(
+                OutlinedTextField(
                     value = exerciseWeight,
                     onValueChange = { exerciseWeight = it },
                     label = { Text("Weight") },

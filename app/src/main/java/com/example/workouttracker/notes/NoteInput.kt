@@ -68,13 +68,13 @@ fun NoteInput(
             value = noteLabel,
             onValueChange = { noteLabel = it },
             label = { Text("Enter a task!") },
-            modifier = Modifier.padding(bottom = 4.dp)
+            modifier = Modifier.padding(bottom = 12.dp)
         )
-        // Dropdown for priority of todo item
+        // Dropdown for priority of notes item
         PriorityDropdown(notePriority) { priority ->
             notePriority = priority
         }
-        // add to todo list if not blank
+        // add to notes list if not blank
         Button(
             onClick = {
                 if (noteLabel.isNotBlank()) {
@@ -85,7 +85,7 @@ fun NoteInput(
                 }
             },
             modifier = Modifier
-                .padding(8.dp)
+                .padding(12.dp)
                 .height(48.dp)
         ) {
             Text(text = "Add Note",

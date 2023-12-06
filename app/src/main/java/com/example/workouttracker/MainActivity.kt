@@ -20,6 +20,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.codelabs.state.NotesScreen
 import com.example.calendartest.CalendarContent
+import com.example.workouttracker.LandingScreen
 import com.example.workouttracker.accountpage.SignInPage
 import com.example.workouttracker.exerciseinput.WorkoutInput
 import com.example.workouttracker.exerciselist.WorkoutList

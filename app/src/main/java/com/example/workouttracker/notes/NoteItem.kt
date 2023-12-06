@@ -55,7 +55,7 @@ fun NoteItem(
             .padding(8.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer,
-            contentColor = MaterialTheme.colorScheme.onBackground // Set your desired content color here
+            contentColor = MaterialTheme.colorScheme.onBackground
         ),
         shape = MaterialTheme.shapes.medium
     ) {
@@ -85,7 +85,7 @@ fun NoteItem(
             )
             IconButton(
                 onClick = onClose,
-                modifier = Modifier.size(24.dp) // Adjust the size of the icon button
+                modifier = Modifier.size(24.dp)
             ) {
                 Icon(
                     Icons.Filled.Close,

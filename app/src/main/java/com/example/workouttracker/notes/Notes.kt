@@ -38,7 +38,7 @@ enum class Priority {
  * @param label: The text content of the ToDo item
  * @param initialChecked: initially false as the ToDo item has not been done
  */
-class ToDo(
+class Notes(
     val id: Int,
     val label: String,
     val priority: Priority,

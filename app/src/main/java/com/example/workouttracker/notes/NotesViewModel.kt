@@ -18,20 +18,20 @@ package com.codelabs.state
 import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
 
-class ToDoViewModel : ViewModel() {
-    private val _toDo = mutableListOf<ToDo>().toMutableStateList()
+class NotesViewModel : ViewModel() {
+    private val _notes = mutableListOf<Notes>().toMutableStateList()
 
-    val toDo: List<ToDo>
-        get() = _toDo
+    val notes: List<Notes>
+        get() = _notes
 
-    fun remove(item: ToDo) {
-        _toDo.remove(item)
+    fun remove(item: Notes) {
+        _notes.remove(item)
     }
-    fun addToDoItem(item: ToDo) {
-        _toDo.add(item)
+    fun addNotes(item: Notes) {
+        _notes.add(item)
     }
-    fun changeTaskChecked(item: ToDo, checked: Boolean) =
-        toDo.find { it.id == item.id }?.let { td ->
+    fun changeTaskChecked(item: Notes, checked: Boolean) =
+        notes.find { it.id == item.id }?.let { td ->
             td.checked = checked
         }
 }

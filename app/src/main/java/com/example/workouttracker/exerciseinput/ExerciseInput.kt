@@ -1,7 +1,6 @@
 package com.example.workouttracker.exerciseinput
 
 import android.annotation.SuppressLint
-import androidx.compose.ui.graphics.Color
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -14,7 +13,6 @@ import androidx.compose.material.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -22,18 +20,12 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.example.workouttracker.R
 import com.example.workouttracker.ui.theme.WorkoutTrackerTheme
 
 class MainActivity : ComponentActivity() {
@@ -79,7 +71,8 @@ fun WorkoutInput() {
         {
             Column(
                 modifier = Modifier.padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 OutlinedTextField(
                     value = exerciseName,
@@ -111,7 +104,11 @@ fun WorkoutInput() {
                     }
                     keyboard?.hide()
                 },
+                    modifier = Modifier.size(width = 130.dp, height = 58.dp).
+                    padding(top = 12.dp)
+
                     modifier = Modifier.size(width = 140.dp, height = 48.dp)
+
                 ) {
                     Text("Add Exercise")
                 }

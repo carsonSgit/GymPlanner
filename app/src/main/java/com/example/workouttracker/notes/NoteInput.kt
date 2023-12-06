@@ -17,33 +17,20 @@
 
 package com.codelabs.state
 
-import android.widget.Toast
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 //import androidx.compose.foundation.layout.ColumnScopeInstance.weight
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExposedDropdownMenuBox
-import androidx.compose.material3.ExposedDropdownMenuDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -52,10 +39,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.text.toLowerCase
 import androidx.compose.ui.unit.dp
 
 
@@ -65,14 +50,14 @@ import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ToDoInput(
-    viewModel: ToDoViewModel,
+fun NoteInput(
+    viewModel: NotesViewModel,
     modifier: Modifier = Modifier
 ) {
     // all user input values...
-    var toDoLabel by rememberSaveable { mutableStateOf("") }
-    var toDoId by rememberSaveable { mutableStateOf(0) }
-    var toDoPriority by rememberSaveable { mutableStateOf(Priority.LOW) }
+    var noteLabel by rememberSaveable { mutableStateOf("") }
+    var noteId by rememberSaveable { mutableStateOf(0) }
+    var notePriority by rememberSaveable { mutableStateOf(Priority.LOW) }
 
     // creates a column so that you can align all input values together
     Column(
@@ -80,30 +65,30 @@ fun ToDoInput(
             horizontalAlignment = Alignment.CenterHorizontally) {
         // all necessary code for user input (saves into label value)
         OutlinedTextField(
-            value = toDoLabel,
-            onValueChange = { toDoLabel = it },
+            value = noteLabel,
+            onValueChange = { noteLabel = it },
             label = { Text("Enter a task!") },
             modifier = Modifier.padding(bottom = 4.dp)
         )
         // Dropdown for priority of todo item
-        PriorityDropdown(toDoPriority) { priority ->
-            toDoPriority = priority
+        PriorityDropdown(notePriority) { priority ->
+            notePriority = priority
         }
         // add to todo list if not blank
         Button(
             onClick = {
-                if (toDoLabel.isNotBlank()) {
-                    val toDoItem = ToDo(toDoId, toDoLabel, toDoPriority)
-                    viewModel.addToDoItem(toDoItem)
-                    toDoLabel = ""
-                    toDoId++
+                if (noteLabel.isNotBlank()) {
+                    val notesItem = Notes(noteId, noteLabel, notePriority)
+                    viewModel.addNotes(notesItem)
+                    noteLabel = ""
+                    noteId++
                 }
             },
             modifier = Modifier
                 .padding(8.dp)
                 .height(48.dp)
         ) {
-            Text(text = "Add To-Do",
+            Text(text = "Add Note",
                 color = MaterialTheme.colorScheme.onPrimary)
         }
     }

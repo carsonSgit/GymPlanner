@@ -15,28 +15,32 @@
  */
 package com.codelabs.state
 
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.workouttracker.ui.theme.WorkoutTrackerTheme
 
 @Composable
-fun ToDoScreen(
-    modifier: Modifier = Modifier,
-    toDoViewModel: ToDoViewModel = viewModel()
+fun NotesList(
+    list: List<Notes>,
+    onCheckedTask: (Notes, Boolean) -> Unit,
+    onCloseTask: (Notes) -> Unit,
+    modifier: Modifier = Modifier
 ) {
-    Column(modifier = modifier) {
-        ToDoInput(toDoViewModel)
-
-        ToDoList(
-            list = toDoViewModel.toDo,
-            onCheckedTask = { task, checked ->
-                toDoViewModel.changeTaskChecked(task, checked)
-            },
-            onCloseTask = { task ->
-                toDoViewModel.remove(task)
-            }
-        )
+    LazyColumn(
+        modifier = modifier
+    ) {
+        items(
+            items = list,
+            key = { task -> task.id }
+        ) { task ->
+            NoteItem(
+                taskName = task.label,
+                priority = task.priority, // Pass the priority here
+                checked = task.checked,
+                onCheckedChange = { checked -> onCheckedTask(task, checked) },
+                onClose = { onCloseTask(task) }
+            )
+        }
     }
 }

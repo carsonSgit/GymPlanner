@@ -18,7 +18,7 @@ import androidx.compose.material3.Text
 
 @Composable
 fun LandingScreen(onTimeout: () -> Unit, modifier: Modifier = Modifier){
-    Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center){
+    Box(modifier = modifier.fillMaxSize().background(MaterialTheme.colorScheme.background), contentAlignment = Alignment.Center){
         val currentOnTimeout by rememberUpdatedState(onTimeout)
 
         LaunchedEffect(Unit){

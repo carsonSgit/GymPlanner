@@ -4,39 +4,32 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.codelabs.state.ToDoScreen
+import com.codelabs.state.NotesScreen
 import com.example.calendartest.CalendarContent
 import com.example.workouttracker.accountpage.SignInPage
 import com.example.workouttracker.exerciseinput.WorkoutInput
-import com.example.workouttracker.exerciselist.ExerciseList
 import com.example.workouttracker.exerciselist.WorkoutList
+import com.example.workouttracker.navbar.Calendar
+import com.example.workouttracker.navbar.ExerciseInput
+import com.example.workouttracker.navbar.ExerciseTabRow
+import com.example.workouttracker.navbar.Notes
+import com.example.workouttracker.navbar.SignIn
+import com.example.workouttracker.navbar.exerciseTabRowScreens
 import com.example.workouttracker.ui.theme.WorkoutTrackerTheme
-import java.lang.reflect.Executable
 
 
 class MainActivity : ComponentActivity() {
@@ -73,11 +66,11 @@ class MainActivity : ComponentActivity() {
                             composable(route = ExerciseInput.route) {
                                 WorkoutInput()
                             }
-                            composable(route = ExerciseList.route) {
+                            composable(route = com.example.workouttracker.navbar.ExerciseList.route) {
                                 WorkoutList()
                             }
                             composable(route = Notes.route) {
-                                ToDoScreen()
+                                NotesScreen()
                             }
                             composable(route = Calendar.route){
                                 CalendarContent()

@@ -68,7 +68,8 @@ fun WorkoutInput() {
         {
             Column(
                 modifier = Modifier.padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 OutlinedTextField(
                     value = exerciseName,
@@ -100,7 +101,8 @@ fun WorkoutInput() {
                     }
                     keyboard?.hide()
                 },
-                    modifier = Modifier.size(width = 140.dp, height = 48.dp)
+                    modifier = Modifier.size(width = 130.dp, height = 58.dp).
+                    padding(top = 12.dp)
                 ) {
                     Text("Add Exercise")
                 }

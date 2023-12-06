@@ -67,7 +67,7 @@ fun NoteInput(
         OutlinedTextField(
             value = noteLabel,
             onValueChange = { noteLabel = it },
-            label = { Text("Enter a task!") },
+            label = { Text("Enter a note!") },
             modifier = Modifier.padding(bottom = 12.dp)
         )
         // Dropdown for priority of notes item

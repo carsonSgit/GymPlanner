@@ -107,7 +107,6 @@ fun WorkoutInput() {
                     modifier = Modifier.size(width = 130.dp, height = 58.dp).
                     padding(top = 12.dp)
 
-                    modifier = Modifier.size(width = 140.dp, height = 48.dp)
 
                 ) {
                     Text("Add Exercise")

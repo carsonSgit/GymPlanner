@@ -53,7 +53,10 @@ fun NoteItem(
         modifier = modifier
             .fillMaxWidth()
             .padding(8.dp),
-        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primaryContainer),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer,
+            contentColor = MaterialTheme.colorScheme.onBackground // Set your desired content color here
+        ),
         shape = MaterialTheme.shapes.medium
     ) {
         Row(

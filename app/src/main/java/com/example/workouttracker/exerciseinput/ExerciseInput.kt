@@ -4,6 +4,9 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.runtime.*
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.material.*
@@ -103,6 +106,9 @@ fun WorkoutInput() {
                 },
                     modifier = Modifier.size(width = 130.dp, height = 58.dp).
                     padding(top = 12.dp)
+
+                    modifier = Modifier.size(width = 140.dp, height = 48.dp)
+
                 ) {
                     Text("Add Exercise")
                 }

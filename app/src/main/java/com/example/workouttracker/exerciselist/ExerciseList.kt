@@ -78,6 +78,7 @@ class MainActivity : ComponentActivity() {
                                     modifier = Modifier
                                         .fillMaxWidth()
                                         .semantics { contentDescription = "Footer Text" },
+
                                     textAlign = TextAlign.Center,
                                     text = "Thank You for visiting"
                                 )
@@ -223,7 +224,6 @@ fun OnboardingScreen(onContinueClicked: () -> Unit, modifier: Modifier = Modifie
             }
         }
     }
-
 }
 
 @Composable

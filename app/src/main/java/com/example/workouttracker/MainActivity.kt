@@ -76,6 +76,9 @@ class MainActivity : ComponentActivity() {
                             composable(route = Calendar.route){
                                 CalendarContent()
                             }
+                            composable(route = Calendar.route){
+                                CalendarContent()
+                            }
                             composable(route = SignIn.route) {
                                 SignInPage()
                             }

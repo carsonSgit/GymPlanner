@@ -26,8 +26,8 @@ render.experimental.xml
 *.jks
 *.keystore
 
-# Google Services (e.g. APIs or Firebase)
-google-services.json
+# Google Services (e.g. APIs or Firebase)      COMMENTED OUT FOR DEVELOPMENT PURPOSES
+# google-services.json
 
 # Android Profiling
 *.hprof

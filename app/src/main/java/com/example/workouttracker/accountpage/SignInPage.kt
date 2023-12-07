@@ -13,26 +13,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.constraintlayout.compose.Visibility
-import com.example.workouttracker.ui.theme.Purple80
 import com.example.workouttracker.ui.theme.WorkoutTrackerTheme
+import com.google.firebase.firestore.FirebaseFirestore
 
 @Composable
-fun SignInPage() {
+fun SignInPage(db: FirebaseFirestore) {
     var showLoginPage by remember { mutableStateOf(true) }
 
     if (showLoginPage) {

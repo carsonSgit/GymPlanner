@@ -43,6 +43,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 /*
@@ -53,6 +54,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun NoteInput(
     viewModel: NotesViewModel,
+    db: FirebaseFirestore,
     modifier: Modifier = Modifier
 ) {
     // all user input values...
@@ -81,8 +83,18 @@ fun NoteInput(
                 if (noteLabel.isNotBlank()) {
                     val notesItem = Notes(noteId, noteLabel, notePriority)
                     viewModel.addNotes(notesItem)
+                    // adding the note to the Firestore database
+                    val taskItem = hashMapOf(
+                        "name" to noteLabel,
+                        "priority" to notePriority
+                    )
+
+                    db.collection("tasks").document(noteId.toString())
+                        .set(taskItem)
                     noteLabel = ""
                     noteId++
+
+
                 }
             },
             modifier = Modifier

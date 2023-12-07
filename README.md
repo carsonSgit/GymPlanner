@@ -1,5 +1,5 @@
 # GymPlanner
-
+i love notes
 ## Goal
 Workout Tracker is a fitness app that help users log their exercise routines. Workout Tracker creates a comprehensive log of exercises, sets, reps and allows for note taking.
 

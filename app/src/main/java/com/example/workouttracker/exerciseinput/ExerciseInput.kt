@@ -4,9 +4,6 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.runtime.*
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.material.*
@@ -27,20 +24,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import com.example.workouttracker.ui.theme.WorkoutTrackerTheme
+import com.google.firebase.firestore.FirebaseFirestore
 
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            WorkoutTrackerTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(modifier = Modifier.fillMaxSize()) {
-                    WorkoutInput()
-                }
-            }
-        }
-    }
-}
+
 
 
 /**
@@ -51,7 +37,7 @@ class MainActivity : ComponentActivity() {
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
-fun WorkoutInput() {
+fun WorkoutInput(db: FirebaseFirestore) {
     // used to hide the keyboard when add exercise button is clicked
     // @see [https://stackoverflow.com/questions/69124822/android-compose-show-and-hide-keyboard]
     val keyboard = LocalSoftwareKeyboardController.current
@@ -124,11 +110,4 @@ fun WorkoutInput() {
 
 
 
-/**
- * Preview function for the Workout Tracker App
- */
-@Preview
-@Composable
-fun PreviewWorkoutTrackerApp() {
-    WorkoutInput()
-}
+

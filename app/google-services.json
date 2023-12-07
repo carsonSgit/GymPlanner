@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "474565980607",
+    "project_id": "gymplanner-4224",
+    "storage_bucket": "gymplanner-4224.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:474565980607:android:7b4463e49ccfc587d2310a",
+        "android_client_info": {
+          "package_name": "com.example.workouttracker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATrPvk-5DTV1eemuWit7wSMaBNp5twYQA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

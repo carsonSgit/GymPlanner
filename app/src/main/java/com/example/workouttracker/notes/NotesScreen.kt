@@ -19,14 +19,17 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.google.firebase.firestore.FirebaseFirestore
 
 @Composable
 fun NotesScreen(
+    db:FirebaseFirestore,
     modifier: Modifier = Modifier,
     notesViewModel: NotesViewModel = viewModel()
+
 ) {
     Column(modifier = modifier) {
-        NoteInput(notesViewModel)
+        NoteInput(notesViewModel,db)
 
         NotesList(
             list = notesViewModel.notes,

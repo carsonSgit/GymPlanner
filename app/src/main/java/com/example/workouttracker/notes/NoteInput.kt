@@ -17,33 +17,48 @@
 
 package com.codelabs.state
 
+//import androidx.compose.foundation.layout.ColumnScopeInstance.weight
+import android.app.DatePickerDialog
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-//import androidx.compose.foundation.layout.ColumnScopeInstance.weight
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.google.firebase.firestore.FirebaseFirestore
+import java.util.Calendar
+import java.util.Date
 
 
 /*
@@ -73,6 +88,9 @@ fun NoteInput(
             label = { Text("Enter a note!") },
             modifier = Modifier.padding(bottom = 12.dp)
         )
+
+        DatePicker()
+
         // Dropdown for priority of notes item
         PriorityDropdown(notePriority) { priority ->
             notePriority = priority
@@ -107,6 +125,74 @@ fun NoteInput(
     }
 }
 
+@Composable
+fun DatePicker() {
+    val mContext = LocalContext.current
+    val mCalendar = Calendar.getInstance()
+
+    // Fetching current year, month, and day
+    val mYear = mCalendar.get(Calendar.YEAR)
+    val mMonth = mCalendar.get(Calendar.MONTH)
+    val mDay = mCalendar.get(Calendar.DAY_OF_MONTH)
+
+    mCalendar.time = Date()
+
+    // Declaring a string value to store date in string format
+    val mDate = remember { mutableStateOf("") }
+
+    // Declaring DatePickerDialog and setting
+    // initial values as current values (present year, month, and day)
+    val mDatePickerDialog = DatePickerDialog(
+        mContext,
+        { _, year, month, dayOfMonth ->
+            mDate.value = "$dayOfMonth/${month + 1}/$year"
+        }, mYear, mMonth, mDay
+    )
+
+    Card(
+        modifier = Modifier
+            .fillMaxWidth(0.7f)
+            .fillMaxHeight(0.17f)
+            .padding(top = 16.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = Color.Transparent
+    ),
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            OutlinedTextField(
+                value = mDate.value,
+                onValueChange = { },
+                label = { Text("Selected Date") },
+                readOnly = true,
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(bottom = 4.dp)
+            )
+            // IconButton with Icons.Default.DateRange
+            IconButton(
+                modifier = Modifier.padding(start = 12.dp),
+                onClick = {
+                    mDatePickerDialog.show()
+                }
+            ) {
+                Icon(
+                    imageVector = Icons.Default.DateRange,
+                    contentDescription = null, // Content description for accessibility
+                    modifier = Modifier
+                        .size(32.dp)
+                )
+            }
+        }
+    }
+}
+
+
+
+
 // INSPO SOURCE:
 // @see: https://alexzh.com/jetpack-compose-dropdownmenu/
 // HAD TO WATCH SOME YOUTUBE VIDEOS TO FIGURE OUT THE PARAMS AS WELL
@@ -121,7 +207,7 @@ fun PriorityDropdown(
     Box(
         modifier = Modifier
             .clickable { expanded = true }
-            .border(1.dp, Color.Gray)
+            .border(1.dp, Color.Gray, shape = RoundedCornerShape(8.dp))
             .padding(16.dp)
             .semantics { contentDescription = "Select Priority" },
         ) {

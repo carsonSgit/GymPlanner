@@ -1,4 +1,4 @@
-package com.example.workouttracker
+package com.example.gymplanner
 
 import org.junit.Test
 

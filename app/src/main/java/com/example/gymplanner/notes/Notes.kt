@@ -19,24 +19,44 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 
+/**
+ * Enumeration representing the priority levels for ToDo items.
+ */
 enum class Priority {
+    /**
+     * Low priority level.
+     */
     LOW {
         override val text = "Low"
     },
+
+    /**
+     * Medium priority level.
+     */
     MEDIUM {
         override val text = "Medium"
     },
+
+    /**
+     * High priority level.
+     */
     HIGH {
         override val text = "High"
     };
 
+    /**
+     * Abstract property representing the text associated with the priority level.
+     */
     abstract val text: String
 }
+
 /**
- * ToDo class.
- * @param id: the id of the new ToDo item
- * @param label: The text content of the ToDo item
- * @param initialChecked: initially false as the ToDo item has not been done
+ * Class representing a ToDo item.
+ *
+ * @param id The unique identifier of the ToDo item.
+ * @param label The text content of the ToDo item.
+ * @param priority The priority level of the ToDo item.
+ * @param initialChecked Initially false as the ToDo item has not been done.
  */
 class Notes(
     val id: Int,
@@ -44,6 +64,8 @@ class Notes(
     val priority: Priority,
     initialChecked: Boolean = false
 ) {
-    // a value to hold the value of the checkbox
+    /**
+     * Property to hold the value of the checkbox, indicating whether the ToDo item is done or not.
+     */
     var checked: Boolean by mutableStateOf(initialChecked)
 }

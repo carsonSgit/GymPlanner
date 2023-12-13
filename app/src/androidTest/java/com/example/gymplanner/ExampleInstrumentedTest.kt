@@ -1,4 +1,4 @@
-package com.example.workouttracker
+package com.example.gymplanner
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

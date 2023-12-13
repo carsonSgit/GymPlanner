@@ -62,9 +62,12 @@ import java.util.Date
 
 
 /*
-    Main components of the assignment are done here
+ * NoteInput Composable: Allows users to input notes with labels, dates, and priorities.
+ *
+ * @param viewModel: ViewModel for managing notes data
+ * @param db: FirebaseFirestore instance for interacting with Firebase Firestore
+ * @param modifier: Modifier for configuring the layout of the NoteInput Composable
  */
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NoteInput(
@@ -72,61 +75,76 @@ fun NoteInput(
     db: FirebaseFirestore,
     modifier: Modifier = Modifier
 ) {
-    // all user input values...
+    // State variables to store user input values
     var noteLabel by rememberSaveable { mutableStateOf("") }
     var noteId by rememberSaveable { mutableStateOf(0) }
     var notePriority by rememberSaveable { mutableStateOf(Priority.LOW) }
 
-    // creates a column so that you can align all input values together
+    // Column to align input values together
     Column(
-            modifier = modifier.padding(58.dp, top = 58.dp),
-            horizontalAlignment = Alignment.CenterHorizontally) {
-        // all necessary code for user input (saves into label value)
+        modifier = modifier.padding(58.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        // Text field for entering note labels
         OutlinedTextField(
             value = noteLabel,
             onValueChange = { noteLabel = it },
             label = { Text("Enter a note!") },
-            modifier = Modifier.padding(bottom = 12.dp)
         )
 
+        // Date picker component
         DatePicker()
 
-        // Dropdown for priority of notes item
+        // Dropdown for selecting note priority
         PriorityDropdown(notePriority) { priority ->
             notePriority = priority
         }
-        // add to notes list if not blank
+
+        // Button to add note to the list
         Button(
             onClick = {
                 if (noteLabel.isNotBlank()) {
                     val notesItem = Notes(noteId, noteLabel, notePriority)
                     viewModel.addNotes(notesItem)
-                    // adding the note to the Firestore database
-                    val taskItem = hashMapOf(
-                        "name" to noteLabel,
-                        "priority" to notePriority
-                    )
+                    // Add Note to Firestore
+                    addNoteToFirestore(db, noteLabel, notePriority, noteId)
 
-                    db.collection("tasks").document(noteId.toString())
-                        .set(taskItem)
                     noteLabel = ""
                     noteId++
-
-
                 }
             },
             modifier = Modifier
                 .padding(12.dp)
                 .height(48.dp)
         ) {
-            Text(text = "Add Note",
-                color = MaterialTheme.colorScheme.onPrimary)
+            Text(text = "Add Note", color = MaterialTheme.colorScheme.onPrimary)
         }
     }
 }
 
+/*
+ * Adds a note to the Firestore database.
+ *
+ * @param db: Instance of FirebaseFirestore
+ * @param noteLabel: Label of the note
+ * @param priority: Priority of the note
+ * @param noteId: Unique identifier for the note
+ */
+private fun addNoteToFirestore(db: FirebaseFirestore, noteLabel: String, priority: Priority, noteId: Int) {
+    val taskItem = hashMapOf(
+        "name" to noteLabel,
+        "priority" to priority
+    )
+    db.collection("tasks").document(noteId.toString())
+        .set(taskItem)
+}
+
+/*
+ * DatePicker Composable: Allows users to pick a date for the note.
+ */
 @Composable
 fun DatePicker() {
+    // Context and Calendar instance
     val mContext = LocalContext.current
     val mCalendar = Calendar.getInstance()
 
@@ -137,11 +155,10 @@ fun DatePicker() {
 
     mCalendar.time = Date()
 
-    // Declaring a string value to store date in string format
+    // State variable to store selected date
     val mDate = remember { mutableStateOf("") }
 
-    // Declaring DatePickerDialog and setting
-    // initial values as current values (present year, month, and day)
+    // DatePickerDialog for selecting a date
     val mDatePickerDialog = DatePickerDialog(
         mContext,
         { _, year, month, dayOfMonth ->
@@ -149,6 +166,7 @@ fun DatePicker() {
         }, mYear, mMonth, mDay
     )
 
+    // Card containing a row with an OutlinedTextField and IconButton
     Card(
         modifier = Modifier
             .fillMaxWidth(0.7f)
@@ -156,13 +174,14 @@ fun DatePicker() {
             .padding(top = 16.dp),
         colors = CardDefaults.cardColors(
             containerColor = Color.Transparent
-    ),
+        ),
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
+            // OutlinedTextField to display selected date
             OutlinedTextField(
                 value = mDate.value,
                 onValueChange = { },
@@ -172,7 +191,8 @@ fun DatePicker() {
                     .weight(1f)
                     .padding(bottom = 4.dp)
             )
-            // IconButton with Icons.Default.DateRange
+
+            // IconButton with Icons.Default.DateRange to show DatePickerDialog
             IconButton(
                 modifier = Modifier.padding(start = 12.dp),
                 onClick = {
@@ -190,31 +210,35 @@ fun DatePicker() {
     }
 }
 
-
-
-
-// INSPO SOURCE:
-// @see: https://alexzh.com/jetpack-compose-dropdownmenu/
-// HAD TO WATCH SOME YOUTUBE VIDEOS TO FIGURE OUT THE PARAMS AS WELL
+/*
+ * PriorityDropdown Composable: Allows users to select the priority of the note.
+ *
+ * @param selectedPriority: Currently selected priority
+ * @param onPrioritySelected: Callback for when a priority is selected
+ */
 @Composable
 fun PriorityDropdown(
     selectedPriority: Priority,
     onPrioritySelected: (Priority) -> Unit
 ) {
+    // State variable to track dropdown expansion
     var expanded by rememberSaveable { mutableStateOf(false) }
     val priorities = Priority.values()
 
+    // Box containing a Text displaying the selected priority
     Box(
         modifier = Modifier
             .clickable { expanded = true }
             .border(1.dp, Color.Gray, shape = RoundedCornerShape(8.dp))
             .padding(16.dp)
             .semantics { contentDescription = "Select Priority" },
-        ) {
+    ) {
         Text(
             text = "Priority: ${selectedPriority.text}"
         )
     }
+
+    // DropdownMenu displaying available priorities
     DropdownMenu(
         expanded = expanded,
         onDismissRequest = { expanded = false }
@@ -230,4 +254,3 @@ fun PriorityDropdown(
         }
     }
 }
-

@@ -20,6 +20,14 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
+/**
+ * Composable function to display a list of ToDo items.
+ *
+ * @param list List of ToDo items to be displayed.
+ * @param onCheckedTask Callback for handling changes in the completion status of a ToDo item.
+ * @param onCloseTask Callback for handling the closure of a ToDo item.
+ * @param modifier Additional modifier for customization.
+ */
 @Composable
 fun NotesList(
     list: List<Notes>,
@@ -34,9 +42,10 @@ fun NotesList(
             items = list,
             key = { task -> task.id }
         ) { task ->
+            // Display individual ToDo items using the NoteItem composable
             NoteItem(
                 taskName = task.label,
-                priority = task.priority, // Pass the priority here
+                priority = task.priority,
                 checked = task.checked,
                 onCheckedChange = { checked -> onCheckedTask(task, checked) },
                 onClose = { onCloseTask(task) }

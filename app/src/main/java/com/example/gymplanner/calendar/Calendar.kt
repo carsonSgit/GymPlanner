@@ -1,7 +1,5 @@
 package com.example.calendartest
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
+
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -27,7 +25,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.firebase.firestore.FirebaseFirestore
 import java.time.DayOfWeek
@@ -54,13 +51,13 @@ data class CalendarUiModel(
         val day: String = date.format(DateTimeFormatter.ofPattern("E")) // get the day by formatting the date
     }
 }
+
 class CalendarDataSource {
 
     val today: LocalDate
         get() {
             return LocalDate.now()
         }
-
 
     fun getData(startDate: LocalDate = today, lastSelectedDate: LocalDate): CalendarUiModel {
         val firstDayOfWeek = startDate.with(DayOfWeek.MONDAY)
@@ -97,7 +94,6 @@ class CalendarDataSource {
     )
 }
 
-
 @Composable
 fun CalendarContent(db: FirebaseFirestore) {
     val dataSource = CalendarDataSource()
@@ -108,18 +104,21 @@ fun CalendarContent(db: FirebaseFirestore) {
             .padding(16.dp)
     ) {
         // Month and year header
-        Header(data=calendarUiModel,onPrevClickListener = { startDate ->
-            // refresh the CalendarUiModel with new data
-            // by get data with new Start Date (which is the startDate-1 from the visibleDates)
-            val finalStartDate = startDate.minusDays(1)
-            calendarUiModel = dataSource.getData(startDate = finalStartDate, lastSelectedDate = calendarUiModel.selectedDate.date)
-        },
+        Header(
+            data = calendarUiModel,
+            onPrevClickListener = { startDate ->
+                // refresh the CalendarUiModel with new data
+                // by get data with new Start Date (which is the startDate-1 from the visibleDates)
+                val finalStartDate = startDate.minusDays(1)
+                calendarUiModel = dataSource.getData(startDate = finalStartDate, lastSelectedDate = calendarUiModel.selectedDate.date)
+            },
             onNextClickListener = { endDate ->
                 // refresh the CalendarUiModel with new data
                 // by get data with new Start Date (which is the endDate+2 from the visibleDates)
                 val finalStartDate = endDate.plusDays(2)
                 calendarUiModel = dataSource.getData(startDate = finalStartDate, lastSelectedDate = calendarUiModel.selectedDate.date)
-            })
+            }
+        )
         Content(data = calendarUiModel, onDateClickListener = { date ->
             // refresh the CalendarUiModel with new data
             // by changing only the `selectedDate` with the date selected by User
@@ -131,22 +130,18 @@ fun CalendarContent(db: FirebaseFirestore) {
                     )
                 }
             )
-
-
         })
 
-
-            var taskItems =  db.collection("tasks")
-                .whereEqualTo("priority","HIGH")
-                .get()
-
-
+        var taskItems = db.collection("tasks")
+            .whereEqualTo("priority", "HIGH")
+            .get()
     }
 }
+
 @Composable
 fun Header(data: CalendarUiModel,
            onPrevClickListener: (LocalDate) -> Unit,
-           onNextClickListener: (LocalDate) -> Unit,) {
+           onNextClickListener: (LocalDate) -> Unit) {
     Row {
         Text(
             // show "Today" if user selects today's date
@@ -168,7 +163,7 @@ fun Header(data: CalendarUiModel,
                 contentDescription = "Back"
             )
         }
-        IconButton(onClick = {onNextClickListener(data.endDate.date) }) {
+        IconButton(onClick = { onNextClickListener(data.endDate.date) }) {
             Icon(
                 imageVector = Icons.Filled.ArrowForward,
                 contentDescription = "Next"
@@ -179,18 +174,18 @@ fun Header(data: CalendarUiModel,
 
 @Composable
 fun Content(data: CalendarUiModel,
-            onDateClickListener: (CalendarUiModel.Date) -> Unit,) {
+            onDateClickListener: (CalendarUiModel.Date) -> Unit) {
     LazyRow {
         // pass the visibleDates to the UI
         items(items = data.visibleDates) { date ->
-            ContentItem(date,onDateClickListener)
+            ContentItem(date, onDateClickListener)
         }
     }
 }
 
 @Composable
 fun ContentItem(date: CalendarUiModel.Date,
-                onClickListener: (CalendarUiModel.Date) -> Unit,) {
+                onClickListener: (CalendarUiModel.Date) -> Unit) {
     Card(
         modifier = Modifier
             .padding(vertical = 4.dp, horizontal = 4.dp)

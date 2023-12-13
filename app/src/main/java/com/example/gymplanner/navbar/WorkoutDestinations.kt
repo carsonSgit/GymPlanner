@@ -1,11 +1,10 @@
-package com.example.workouttracker.navbar
+package com.example.gymplanner.navbar
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material.icons.filled.Info
 import androidx.compose.ui.graphics.vector.ImageVector
 
 interface WorkoutDestination {
@@ -16,10 +15,6 @@ interface WorkoutDestination {
 object ExerciseInput: WorkoutDestination {
     override val route = "add"
     override val icon: ImageVector = Icons.Default.Create
-}
-object ExerciseList: WorkoutDestination {
-    override val route = "list"
-    override val icon: ImageVector = Icons.Default.Info
 }
 object Notes: WorkoutDestination {
     override val route = "notes"
@@ -35,4 +30,4 @@ object Calendar: WorkoutDestination {
     override val icon: ImageVector = Icons.Default.DateRange
 }
 
-val exerciseTabRowScreens = listOf(ExerciseInput, ExerciseList, Notes, Calendar, SignIn)
+val exerciseTabRowScreens = listOf(ExerciseInput, Notes, Calendar, SignIn)

@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.workouttracker"
+    namespace = "com.example.gymplanner"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.workouttracker"
+        applicationId = "com.example.gymplanner"
         minSdk = 34
         targetSdk = 34
         versionCode = 1
@@ -51,7 +51,10 @@ android {
 }
 
 dependencies {
-
+    implementation ("com.google.android.gms:play-services-auth:20.7.0")
+    implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
+    implementation("com.google.android.gms:play-services-auth:20.7.0")
+    implementation("com.google.firebase:firebase-auth")
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("com.google.android.material:material:1.5.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
@@ -74,5 +77,4 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:32.6.0"))
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-firestore")
-
 }

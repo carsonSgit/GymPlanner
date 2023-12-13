@@ -9,10 +9,23 @@
       "client_info": {
         "mobilesdk_app_id": "1:474565980607:android:7b4463e49ccfc587d2310a",
         "android_client_info": {
-          "package_name": "com.example.workouttracker"
+          "package_name": "com.example.gymplanner"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "474565980607-v92eahhv7h6ruhc05ltevldpcbfj5pp7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.gymplanner",
+            "certificate_hash": "233f3d65776694008eb4922733867c37325ef653"
+          }
+        },
+        {
+          "client_id": "474565980607-a02m38m0um13bht7m6l0bv9mci4s1q6i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyATrPvk-5DTV1eemuWit7wSMaBNp5twYQA"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "474565980607-a02m38m0um13bht7m6l0bv9mci4s1q6i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

@@ -21,16 +21,25 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.firebase.firestore.FirebaseFirestore
 
+/**
+ * Composable function representing the main screen for managing ToDo items.
+ *
+ * @param db The instance of FirebaseFirestore for interacting with the Firebase database.
+ * @param modifier Additional modifier for customization.
+ * @param notesViewModel The ViewModel responsible for managing ToDo items.
+ */
 @Composable
 fun NotesScreen(
-    db:FirebaseFirestore,
+    db: FirebaseFirestore,
     modifier: Modifier = Modifier,
     notesViewModel: NotesViewModel = viewModel()
-
 ) {
+    // Main column layout for the NotesScreen
     Column(modifier = modifier) {
-        NoteInput(notesViewModel,db)
+        // Composable for adding new ToDo items
+        NoteInput(notesViewModel, db)
 
+        // Composable for displaying the list of ToDo items
         NotesList(
             list = notesViewModel.notes,
             onCheckedTask = { task, checked ->

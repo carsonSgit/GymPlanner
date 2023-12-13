@@ -1,4 +1,4 @@
-package com.example.workouttracker
+package com.example.gymplanner
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -20,17 +20,15 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.codelabs.state.NotesScreen
 import com.example.calendartest.CalendarContent
-import com.example.workouttracker.accountpage.SignInPage
-import com.example.workouttracker.exerciseinput.WorkoutInput
-import com.example.workouttracker.exerciselist.WorkoutList
-import com.example.workouttracker.navbar.Calendar
-import com.example.workouttracker.navbar.ExerciseInput
-import com.example.workouttracker.navbar.ExerciseList
-import com.example.workouttracker.navbar.ExerciseTabRow
-import com.example.workouttracker.navbar.Notes
-import com.example.workouttracker.navbar.SignIn
-import com.example.workouttracker.navbar.exerciseTabRowScreens
-import com.example.workouttracker.ui.theme.WorkoutTrackerTheme
+import com.example.gymplanner.accountpage.SignInPage
+import com.example.gymplanner.exerciseinput.WorkoutInput
+import com.example.gymplanner.navbar.Calendar
+import com.example.gymplanner.navbar.ExerciseInput
+import com.example.gymplanner.navbar.ExerciseTabRow
+import com.example.gymplanner.navbar.Notes
+import com.example.gymplanner.navbar.SignIn
+import com.example.gymplanner.navbar.exerciseTabRowScreens
+import com.example.gymplanner.ui.theme.WorkoutTrackerTheme
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 
@@ -71,9 +69,6 @@ class MainActivity : ComponentActivity() {
                         ) {
                             composable(route = ExerciseInput.route) {
                                 WorkoutInput(db)
-                            }
-                            composable(route = ExerciseList.route) {
-                                WorkoutList()
                             }
                             composable(route = Notes.route) {
                                 NotesScreen(db)

@@ -5,6 +5,7 @@ import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.ui.graphics.vector.ImageVector
 
 interface WorkoutDestination {
@@ -29,5 +30,9 @@ object Calendar: WorkoutDestination {
     override val route = "calendar"
     override val icon: ImageVector = Icons.Default.DateRange
 }
+object About: WorkoutDestination {
+    override val route = "about"
+    override val icon: ImageVector = Icons.Default.Info
+}
 
-val exerciseTabRowScreens = listOf(ExerciseInput, Notes, Calendar, SignIn)
+val exerciseTabRowScreens = listOf(ExerciseInput, Notes, Calendar, SignIn, About)

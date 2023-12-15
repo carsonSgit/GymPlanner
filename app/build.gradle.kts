@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.gms.google-services")
+    id("com.diffplug.spotless") version "6.23.3"
 }
 
 android {
@@ -18,6 +19,19 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
+        }
+    }
+
+    spotless {
+        kotlin {
+            ktfmt()
+            ktlint()
+            diktat()
+            prettier()
+        }
+        kotlinGradle {
+            ktlint()
+            diktat()
         }
     }
 

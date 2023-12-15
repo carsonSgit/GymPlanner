@@ -20,8 +20,10 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.codelabs.state.NotesScreen
 import com.example.calendartest.CalendarContent
+import com.example.gymplanner.about.AboutUsScreen
 import com.example.gymplanner.accountpage.SignInPage
 import com.example.gymplanner.exerciseinput.WorkoutInput
+import com.example.gymplanner.navbar.About
 import com.example.gymplanner.navbar.Calendar
 import com.example.gymplanner.navbar.ExerciseInput
 import com.example.gymplanner.navbar.ExerciseTabRow
@@ -78,6 +80,9 @@ class MainActivity : ComponentActivity() {
                             }
                             composable(route = SignIn.route) {
                                 SignInPage(db)
+                            }
+                            composable(route = About.route) {
+                                AboutUsScreen()
                             }
                         }
                     }

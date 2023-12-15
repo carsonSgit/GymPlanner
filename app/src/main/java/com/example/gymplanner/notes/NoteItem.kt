@@ -62,7 +62,7 @@ fun NoteItem(
             containerColor = MaterialTheme.colorScheme.primaryContainer,
             contentColor = MaterialTheme.colorScheme.onBackground
         ),
-        shape = MaterialTheme.shapes.medium
+        shape = MaterialTheme.shapes.medium,
     ) {
         Row(
             modifier = Modifier
@@ -106,5 +106,6 @@ fun NoteItem(
                 )
             }
         }
+
     }
 }

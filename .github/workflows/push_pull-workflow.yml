@@ -1,0 +1,46 @@
+name: Push Pull Workflow
+
+# Step 1: Choosing which branches and events trigger the workflow
+on:
+  pull_request:
+    branches: 
+      - main
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-gradle-project:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout project sources
+        uses: actions/checkout@v3
+
+      # Setup Java with caching for Gradle
+      - name: Set up JDK 17 with Gradle Cache
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'gradle'
+
+      # Gradle build action with caching
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: --build-cache
+
+      - name:  Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Run the spotlessApply command to format our files
+        run: ./gradlew spotlessApply
+
+      - name: Run ktlint
+        run: ./gradlew ktlintCheck
+
+      - name: Run Build with Gradle Wrapper
+        run: ./gradlew build
+
+# Step 2: Decode Android config file

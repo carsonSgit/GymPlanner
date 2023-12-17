@@ -22,6 +22,8 @@ import com.codelabs.state.NotesScreen
 import com.example.calendartest.CalendarContent
 import com.example.gymplanner.about.AboutUsScreen
 import com.example.gymplanner.accountpage.SignInPage
+import com.example.gymplanner.accountpage.authentication.AuthRepository
+import com.example.gymplanner.accountpage.authentication.AuthRepositoryFirebase
 import com.example.gymplanner.exerciseinput.WorkoutInput
 import com.example.gymplanner.navbar.About
 import com.example.gymplanner.navbar.Calendar
@@ -32,6 +34,7 @@ import com.example.gymplanner.navbar.SignIn
 import com.example.gymplanner.navbar.exerciseTabRowScreens
 import com.example.gymplanner.ui.theme.WorkoutTrackerTheme
 import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
 
 
@@ -39,6 +42,10 @@ class MainActivity : ComponentActivity() {
     // Instanting the firestore database
 
     val db = Firebase.firestore
+    val authRepository : AuthRepository by lazy{
+        AuthRepositoryFirebase(Firebase.auth)
+    }
+
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,7 +86,10 @@ class MainActivity : ComponentActivity() {
                                 CalendarContent(db)
                             }
                             composable(route = SignIn.route) {
-                                SignInPage(db)
+                                SignInPage(authRepository)
+                            }
+                            composable(route = About.route) {
+                                AboutUsScreen()
                             }
                             composable(route = About.route) {
                                 AboutUsScreen()

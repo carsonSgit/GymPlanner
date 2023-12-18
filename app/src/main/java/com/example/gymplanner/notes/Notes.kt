@@ -18,6 +18,7 @@ package com.codelabs.state
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import java.time.LocalDate
 
 /**
  * Enumeration representing the priority levels for ToDo items.
@@ -61,6 +62,7 @@ enum class Priority {
 class Notes(
     val id: Int,
     val label: String,
+    val Date: String,
     val priority: Priority,
     initialChecked: Boolean = false
 ) {

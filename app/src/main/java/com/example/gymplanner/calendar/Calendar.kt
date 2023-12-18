@@ -19,6 +19,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -27,11 +29,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QuerySnapshot
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.time.temporal.ChronoUnit
+import java.util.Date
 import java.util.stream.Collectors
 import java.util.stream.Stream
 
@@ -98,6 +102,16 @@ class CalendarDataSource {
 fun CalendarContent(db: FirebaseFirestore) {
     val dataSource = CalendarDataSource()
     var calendarUiModel by remember { mutableStateOf(dataSource.getData(lastSelectedDate = dataSource.today)) }
+
+
+
+    var dateToDisplayAndQuery by remember { mutableStateOf(calendarUiModel.selectedDate.date) }
+
+    // fetching from firestore (provided from both documentation and chat gpt)
+
+    var taskItems by remember { mutableStateOf<QuerySnapshot?>(null) }
+
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -111,15 +125,17 @@ fun CalendarContent(db: FirebaseFirestore) {
                 // by get data with new Start Date (which is the startDate-1 from the visibleDates)
                 val finalStartDate = startDate.minusDays(1)
                 calendarUiModel = dataSource.getData(startDate = finalStartDate, lastSelectedDate = calendarUiModel.selectedDate.date)
+                dateToDisplayAndQuery = calendarUiModel.selectedDate.date
             },
             onNextClickListener = { endDate ->
                 // refresh the CalendarUiModel with new data
                 // by get data with new Start Date (which is the endDate+2 from the visibleDates)
                 val finalStartDate = endDate.plusDays(2)
                 calendarUiModel = dataSource.getData(startDate = finalStartDate, lastSelectedDate = calendarUiModel.selectedDate.date)
+                dateToDisplayAndQuery = calendarUiModel.selectedDate.date
             }
         )
-        Content(data = calendarUiModel, onDateClickListener = { date ->
+        Content(data = calendarUiModel) { date ->
             // refresh the CalendarUiModel with new data
             // by changing only the `selectedDate` with the date selected by User
             calendarUiModel = calendarUiModel.copy(
@@ -130,11 +146,46 @@ fun CalendarContent(db: FirebaseFirestore) {
                     )
                 }
             )
-        })
 
-        var taskItems = db.collection("tasks")
-            .whereEqualTo("priority", "HIGH")
-            .get()
+            dateToDisplayAndQuery = date.date
+
+        }
+
+
+
+        // Effect to fetch tasks whenever the selected date changes
+        LaunchedEffect(dateToDisplayAndQuery) {
+            val formattedDateQuery = "${dateToDisplayAndQuery.year}-${dateToDisplayAndQuery.month.value}-${dateToDisplayAndQuery.dayOfMonth}"
+            val taskQuery = db.collection("tasks")
+                .whereEqualTo("date", formattedDateQuery)
+
+             taskQuery.addSnapshotListener { value, error ->
+                 if (error == null) {
+                     taskItems = value
+                 }
+             }
+
+
+        }
+
+
+        // Check if taskItems is not null before displaying
+
+        taskItems?.let { querySnapshot ->
+
+                querySnapshot.forEach { document ->
+                    val taskName = document["name"]
+                    val taskPrio = document["priority"]
+                    val taskDate = document["date"]
+                    Text(text = "Task: ${taskName.toString()} | Priority: ${taskPrio.toString()} | Date: $taskDate")
+                }
+
+        }
+
+
+
+
+
     }
 }
 
@@ -220,3 +271,6 @@ fun ContentItem(date: CalendarUiModel.Date,
         }
     }
 }
+
+
+

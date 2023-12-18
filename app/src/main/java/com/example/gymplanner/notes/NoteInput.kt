@@ -13,11 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-@file:OptIn(ExperimentalMaterial3Api::class)
+@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class)
 
 package com.codelabs.state
 
 //import androidx.compose.foundation.layout.ColumnScopeInstance.weight
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -57,6 +58,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.google.firebase.firestore.FirebaseFirestore
+import java.time.LocalDate
 import java.util.Calendar
 import java.util.Date
 
@@ -68,6 +70,7 @@ import java.util.Date
  * @param db: FirebaseFirestore instance for interacting with Firebase Firestore
  * @param modifier: Modifier for configuring the layout of the NoteInput Composable
  */
+@SuppressLint("MutableCollectionMutableState")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NoteInput(
@@ -79,7 +82,10 @@ fun NoteInput(
     var noteLabel by rememberSaveable { mutableStateOf("") }
     var noteId by rememberSaveable { mutableStateOf(0) }
     var notePriority by rememberSaveable { mutableStateOf(Priority.LOW) }
-
+    var noteDate by rememberSaveable {
+        mutableStateOf("")
+    }
+    val placeholder: MutableList<String> by remember { mutableStateOf(mutableListOf()) }
     // Column to align input values together
     Column(
         modifier = modifier.padding(58.dp),
@@ -93,7 +99,15 @@ fun NoteInput(
         )
 
         // Date picker component
-        DatePicker()
+        DatePicker { selectedDate ->
+
+           placeholder.add(selectedDate)
+        }
+
+        placeholder.forEach{item ->
+            noteDate = item
+
+        }
 
         // Dropdown for selecting note priority
         PriorityDropdown(notePriority) { priority ->
@@ -104,10 +118,10 @@ fun NoteInput(
         Button(
             onClick = {
                 if (noteLabel.isNotBlank()) {
-                    val notesItem = Notes(noteId, noteLabel, notePriority)
+                    val notesItem = Notes(noteId, noteLabel,noteDate ,notePriority)
                     viewModel.addNotes(notesItem)
                     // Add Note to Firestore
-                    addNoteToFirestore(db, noteLabel, notePriority, noteId)
+                    addNoteToFirestore(db, noteLabel,noteDate ,notePriority, noteId)
 
                     noteLabel = ""
                     noteId++
@@ -130,10 +144,11 @@ fun NoteInput(
  * @param priority: Priority of the note
  * @param noteId: Unique identifier for the note
  */
-private fun addNoteToFirestore(db: FirebaseFirestore, noteLabel: String, priority: Priority, noteId: Int) {
+private fun addNoteToFirestore(db: FirebaseFirestore, noteLabel: String,noteDate: String ,priority: Priority ,noteId: Int) {
     val taskItem = hashMapOf(
         "name" to noteLabel,
-        "priority" to priority
+        "priority" to priority,
+        "date" to noteDate
     )
     db.collection("tasks").document(noteId.toString())
         .set(taskItem)
@@ -143,7 +158,7 @@ private fun addNoteToFirestore(db: FirebaseFirestore, noteLabel: String, priorit
  * DatePicker Composable: Allows users to pick a date for the note.
  */
 @Composable
-fun DatePicker() {
+fun DatePicker(onDateSelected: (String) -> Unit) {
     // Context and Calendar instance
     val mContext = LocalContext.current
     val mCalendar = Calendar.getInstance()
@@ -155,6 +170,9 @@ fun DatePicker() {
 
     mCalendar.time = Date()
 
+
+
+
     // State variable to store selected date
     val mDate = remember { mutableStateOf("") }
 
@@ -162,7 +180,8 @@ fun DatePicker() {
     val mDatePickerDialog = DatePickerDialog(
         mContext,
         { _, year, month, dayOfMonth ->
-            mDate.value = "$dayOfMonth/${month + 1}/$year"
+            mDate.value = "$year-${month + 1}-$dayOfMonth"
+            onDateSelected(mDate.value)
         }, mYear, mMonth, mDay
     )
 
